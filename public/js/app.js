@@ -215,8 +215,8 @@
             const [y, m, d] = val.split('-');
             return `${d}/${m}/${y}`;
         };
-        formData.set('date-debut', formatDate(formData.get('date-debut')));
-        formData.set('date-fin',   formatDate(formData.get('date-fin')));
+        formData.set('date_debut', formatDate(formData.get('date_debut')));
+        formData.set('date_fin',   formatDate(formData.get('date_fin')));
 
         try {
             const response = await fetch('/api/apply', {
