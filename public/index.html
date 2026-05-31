@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="AutoApply Stage — Postulez à un stage en soumettant votre candidature et CV en ligne." />
+  <title>AutoApply Stage — Candidature en ligne</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <!-- ── En-tête ── -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <rect width="32" height="32" rx="8" fill="url(#grad)" />
+          <path d="M10 22L16 10L22 22" stroke="#fff" stroke-width="2.2" stroke-linecap="round"
+            stroke-linejoin="round" />
+          <path d="M12.5 18h7" stroke="#fff" stroke-width="2.2" stroke-linecap="round" />
+          <defs>
+            <linearGradient id="grad" x1="0" y1="0" x2="32" y2="32">
+              <stop stop-color="#6366f1" />
+              <stop offset="1" stop-color="#8b5cf6" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <span>AutoApply Stage</span>
+      </div>
+      <nav class="header-links" aria-label="Navigation principale">
+        <a href="#">Accueil</a>
+        <a href="#form-section">Postuler</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── Hero ── -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-content">
+      <span class="hero-badge">🎓 Espace Étudiant</span>
+      <h1 id="hero-title">Déposez votre candidature</h1>
+      <p>Téléchargez votre CV et soumettez votre candidature en quelques secondes.<br>Simple, sécurisé et rapide.</p>
+      <a href="#form-section" class="btn-primary">Postuler maintenant</a>
+    </div>
+    <div class="hero-illustration" aria-hidden="true">
+      <div class="card-float card-1">
+        <span>✅</span> Candidature reçue
+      </div>
+      <div class="card-float card-2">
+        <span>📄</span> CV validé
+      </div>
+      <div class="card-float card-3">
+        <span>🚀</span> Profil analysé
+      </div>
+      <div class="blob"></div>
+    </div>
+  </section>
+
+  <!-- ── Formulaire ── -->
+  <section class="form-section" id="form-section">
+    <div class="form-card">
+      <div class="form-header">
+        <h2>Votre candidature</h2>
+        <p>Tous les champs marqués <abbr title="obligatoire">*</abbr> sont obligatoires.</p>
+      </div>
+
+      <!-- Message de confirmation / erreurs -->
+      <div id="feedback" class="feedback hidden" role="alert" aria-live="polite"></div>
+
+      <form id="apply-form" novalidate enctype="multipart/form-data">
+
+        <!-- Nom -->
+        <div class="form-group">
+          <label for="nom">Nom complet <span aria-hidden="true">*</span></label>
+          <input type="text" id="nom" name="nom" placeholder="Ex : Mohammed Alaoui" maxlength="100" autocomplete="name"
+            required />
+          <span class="field-error" id="nom-error" role="alert"></span>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Adresse email <span aria-hidden="true">*</span></label>
+          <input type="email" id="email" name="email" placeholder="exemple@email.com" maxlength="150"
+            autocomplete="email" required />
+          <span class="field-error" id="email-error" role="alert"></span>
+        </div>
+
+        <!-- Téléphone -->
+        <div class="form-group">
+          <label for="phone">Numéro de téléphone <span aria-hidden="true">*</span></label>
+          <input type="tel" id="phone" name="phone" placeholder="Ex : 06 12 34 56 78" maxlength="20" autocomplete="tel"
+            required />
+          <span class="field-error" id="phone-error" role="alert"></span>
+        </div>
+
+        <!-- Lettre de motivation -->
+        <div class="form-group">
+          <label for="lettre">Lettre de motivation <span aria-hidden="true">*</span></label>
+          <textarea id="lettre" name="lettre"
+            placeholder="Présentez-vous et expliquez pourquoi vous postulez à ce poste (min. 20 caractères)..." rows="6"
+            maxlength="3000" required></textarea>
+          <div class="char-counter"><span id="lettre-count">0</span> / 3000</div>
+          <span class="field-error" id="lettre-error" role="alert"></span>
+        </div>
+
+        <!-- Type de stage -->
+        <div class="form-group">
+          <label for="type-stage">Type de stage recherché <span aria-hidden="true">*</span></label>
+          <div class="select-wrapper">
+            <select id="type-stage" name="type_stage" required>
+              <option value="" disabled selected>-- Sélectionnez un type de stage --</option>
+              <option value="Stage de fin d'études (PFE)">Stage de fin d'études (PFE)</option>
+              <option value="Projet de Fin d'Année (PFA)">Projet de Fin d'Année (PFA)</option>
+              <option value="Stage d'observation">Stage d'observation</option>
+              <option value="Stage d'application">Stage d'application</option>
+              <option value="Stage pré-embauche">Stage pré-embauche</option>
+              <option value="Autres">Autres</option>
+            </select>
+            <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </div>
+          <span class="field-error" id="type-stage-error" role="alert"></span>
+        </div>
+
+        <!-- Dates du stage (côte à côte) -->
+        <div class="date-row">
+          <!-- Date de Début -->
+          <div class="form-group date-group">
+            <label for="date-debut">Date de début du stage <span aria-hidden="true">*</span></label>
+            <div class="date-input-wrapper">
+              <svg class="date-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              <input type="date" id="date-debut" name="date_debut" class="date-input" required />
+            </div>
+            <span class="field-error" id="date-debut-error" role="alert"></span>
+          </div>
+
+          <!-- Date de Fin -->
+          <div class="form-group date-group">
+            <label for="date-fin">Date de fin du stage <span aria-hidden="true">*</span></label>
+            <div class="date-input-wrapper">
+              <svg class="date-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              <input type="date" id="date-fin" name="date_fin" class="date-input" required />
+            </div>
+            <span class="field-error" id="date-fin-error" role="alert"></span>
+          </div>
+        </div>
+
+        <!-- Upload CV -->
+        <div class="form-group">
+          <label for="cv">CV (PDF uniquement, max 2 MB) <span aria-hidden="true">*</span></label>
+          <div class="upload-zone" id="upload-zone">
+            <input type="file" id="cv" name="cv" accept=".pdf,application/pdf" class="upload-input" required />
+            <div class="upload-visual" id="upload-visual">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="17 8 12 3 7 8" />
+                <line x1="12" y1="3" x2="12" y2="15" />
+              </svg>
+              <p><strong>Glissez votre CV ici</strong> ou <span class="underline">parcourir</span></p>
+              <small>PDF uniquement — 2 MB maximum</small>
+            </div>
+            <div class="upload-selected hidden" id="upload-selected">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"
+                aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+              </svg>
+              <span id="file-name"></span>
+              <span id="file-size" class="file-size"></span>
+              <button type="button" id="remove-file" class="remove-btn" aria-label="Supprimer le fichier">✕</button>
+            </div>
+          </div>
+          <span class="field-error" id="cv-error" role="alert"></span>
+        </div>
+
+        <!-- Bouton soumettre -->
+        <button type="submit" class="btn-submit" id="submit-btn">
+          <span class="btn-text">Envoyer ma candidature</span>
+          <span class="btn-loader hidden" aria-hidden="true"></span>
+        </button>
+
+      </form>
+    </div>
+  </section>
+
+  <!-- ── Pied de page ── -->
+  <footer class="site-footer">
+    <p>© 2026 AutoApply Stage — Plateforme de candidature sécurisée</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+
+</html>
