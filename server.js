@@ -151,7 +151,7 @@ app.post('/api/apply', (req, res, next) => {
     }
 
     // ── Appel vers n8n (webhook) — multipart/form-data avec le PDF en binaire ──
-    const N8N_WEBHOOK = 'https://mirta-unnosed-insuperably.ngrok-free.dev/webhook-test/etudiant';
+    const N8N_WEBHOOK = 'https://mirta-unnosed-insuperably.ngrok-free.dev/webhook/etudiant';
     try {
       const FormData = require('form-data');
       const form = new FormData();
