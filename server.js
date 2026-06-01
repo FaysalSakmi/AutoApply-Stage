@@ -7,7 +7,13 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
-const fetch = require('node-fetch');
+
+let fetch;
+try {
+  fetch = require('node-fetch');
+} catch {
+  fetch = globalThis.fetch;
+}
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,10 +23,14 @@ const DATA_DIR = path.join(__dirname, 'data');
 const UPLOADS_DIR = path.join(__dirname, 'uploads');
 const DATA_FILE = path.join(DATA_DIR, 'candidatures.json');
 
-[DATA_DIR, UPLOADS_DIR].forEach(dir => {
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-});
-if (!fs.existsSync(DATA_FILE)) fs.writeFileSync(DATA_FILE, '[]', 'utf8');
+try {
+  [DATA_DIR, UPLOADS_DIR].forEach(dir => {
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  });
+  if (!fs.existsSync(DATA_FILE)) fs.writeFileSync(DATA_FILE, '[]', 'utf8');
+} catch (e) {
+  console.error('[startup] Impossible de créer les dossiers/data :', e.message);
+}
 
 // ── Middleware ───────────────────────────────────────────────
 app.use(express.static(path.join(__dirname, 'public')));
@@ -137,7 +147,7 @@ app.post('/api/apply', (req, res, next) => {
     }
 
     // ── Appel vers n8n (webhook) — multipart/form-data avec le PDF en binaire ──
-    const N8N_WEBHOOK = 'https://mirta-unnosed-insuperably.ngrok-free.dev/webhook/etudiant';
+    const N8N_WEBHOOK = 'https://mirta-unnosed-insuperably.ngrok-free.dev/webhook-test/etudiant';
     try {
       const FormData = require('form-data');
       const form = new FormData();
@@ -180,7 +190,10 @@ app.use((err, _req, res, _next) => {
   res.status(500).json({ success: false, errors: ['Erreur interne du serveur. Veuillez réessayer.'] });
 });
 
-// ── Démarrage ────────────────────────────────────────────────
-app.listen(PORT, () => {
-  console.log(`\n✅  Serveur démarré sur http://localhost:${PORT}\n`);
-});
+// ── Export pour Passenger (Serv00) ou démarrage direct ──────
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`\n✅  Serveur démarré sur http://localhost:${PORT}\n`);
+  });
+}
+module.exports = app;

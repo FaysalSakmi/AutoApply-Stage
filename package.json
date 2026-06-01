@@ -4,7 +4,7 @@
   "description": "Plateforme de candidature en ligne pour étudiants",
   "main": "server.js",
   "scripts": {
-    "build": "node -e \"console.log('No build step required')\"",
+    "build": "node -e console.log('no build needed')",
     "start": "node server.js"
   },
   "dependencies": {
