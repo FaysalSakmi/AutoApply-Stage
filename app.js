@@ -2,8 +2,8 @@ const app = require('./server');
 const PORT = process.env.PORT || 3000;
 
 if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`\n✅  Serveur démarré sur http://localhost:${PORT}\n`);
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`\n✅  Serveur démarré sur http://0.0.0.0:${PORT}\n`);
   });
 }
 

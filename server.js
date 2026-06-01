@@ -11,8 +11,12 @@ const { v4: uuidv4 } = require('uuid');
 let fetch;
 try {
   fetch = require('node-fetch');
-} catch {
-  fetch = globalThis.fetch;
+} catch (e) {
+  try {
+    fetch = globalThis.fetch;
+  } catch (e2) {
+    fetch = function() { return Promise.reject(new Error('fetch not available')); };
+  }
 }
 
 const app = express();
@@ -192,8 +196,8 @@ app.use((err, _req, res, _next) => {
 
 // ── Export pour Passenger (Serv00) ou démarrage direct ──────
 if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`\n✅  Serveur démarré sur http://localhost:${PORT}\n`);
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`\n✅  Serveur démarré sur http://0.0.0.0:${PORT}\n`);
   });
 }
 module.exports = app;
