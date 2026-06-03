@@ -209,15 +209,6 @@
 
         const formData = new FormData(form);
 
-        // Convertir les dates de YYYY-MM-DD → DD/MM/YYYY pour n8n
-        const formatDate = (val) => {
-            if (!val) return val;
-            const [y, m, d] = val.split('-');
-            return `${d}/${m}/${y}`;
-        };
-        formData.set('date_debut', formatDate(formData.get('date_debut')));
-        formData.set('date_fin',   formatDate(formData.get('date_fin')));
-
         try {
             const response = await fetch('/api/apply', {
                 method: 'POST',
